@@ -20,8 +20,8 @@ use std::iter;
 use rustc_attr as attr;
 use rustc_target::spec::abi::Abi;
 
-const DEFAULT_THRESHOLD: usize = 50;
-const HINT_THRESHOLD: usize = 100;
+const DEFAULT_THRESHOLD: usize = 15;
+const HINT_THRESHOLD: usize = 30;
 
 const INSTR_COST: usize = 5;
 const CALL_PENALTY: usize = 25;
@@ -40,7 +40,7 @@ struct CallSite<'tcx> {
 
 impl<'tcx> MirPass<'tcx> for Inline {
     fn run_pass(&self, tcx: TyCtxt<'tcx>, source: MirSource<'tcx>, body: &mut BodyAndCache<'tcx>) {
-        if tcx.sess.opts.debugging_opts.mir_opt_level >= 2 {
+        if tcx.sess.opts.debugging_opts.mir_opt_level >= 1 {
             Inliner { tcx, source }.run_pass(body);
         }
     }
